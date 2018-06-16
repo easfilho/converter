@@ -1,0 +1,17 @@
+package br.ilegratest.converterdata;
+
+import br.ilegratest.model.Data;
+import br.ilegratest.model.SalesmanData;
+
+public class ConverterSalesmanData extends ConverterData {
+
+	@Override
+	public Data convert(String data) {
+		String[] fields = data.split(super.SEPARATOR_CHARACTER);
+		String cpf = fields[1];
+		String name = fields[2];
+		Double salary = new Double(fields[3]);
+		return new SalesmanData(cpf, name, salary);
+	}
+	
+}
