@@ -3,10 +3,10 @@ package br.ilegratest.enums;
 import java.util.Arrays;
 import java.util.List;
 
-import br.ilegratest.converterdata.ConverterCustomerData;
-import br.ilegratest.converterdata.ConverterData;
-import br.ilegratest.converterdata.ConverterSaleData;
-import br.ilegratest.converterdata.ConverterSalesmanData;
+import br.ilegratest.service.converterdata.ConverterCustomerData;
+import br.ilegratest.service.converterdata.ConverterData;
+import br.ilegratest.service.converterdata.ConverterSaleData;
+import br.ilegratest.service.converterdata.ConverterSalesmanData;
 
 public enum TypeDataEnum {
 	SALESMAN	("001", new ConverterSalesmanData()),

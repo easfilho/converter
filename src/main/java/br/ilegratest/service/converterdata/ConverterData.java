@@ -1,4 +1,4 @@
-package br.ilegratest.converterdata;
+package br.ilegratest.service.converterdata;
 
 import br.ilegratest.model.Data;
 

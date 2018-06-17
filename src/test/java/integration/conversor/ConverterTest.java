@@ -6,12 +6,12 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.ilegratest.converter.Converter;
-import br.ilegratest.converter.ConverterFlatFile;
 import br.ilegratest.model.CustomerData;
 import br.ilegratest.model.Item;
 import br.ilegratest.model.SaleData;
 import br.ilegratest.model.SalesmanData;
+import br.ilegratest.service.converter.Converter;
+import br.ilegratest.service.converter.ConverterFlatFile;
 
 public class ConverterTest {
 

@@ -26,4 +26,12 @@ public class SaleData extends Data {
 		return nameSalesman;
 	}
 
+	public Double getValue() {
+		return listItem.stream().mapToDouble(x -> x.getQuantity() * x.getPrice()).sum();
+	}
+	
+	public boolean hasSalesman(String nameSalesman) {
+		return this.nameSalesman.equals(nameSalesman);
+	}
+
 }
