@@ -1,5 +1,8 @@
 package br.ilegratest.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SaleSummary {
 	private Integer amountClients;
 	private Integer amountSalesman;
@@ -29,5 +32,14 @@ public class SaleSummary {
 
 	public String getNameWorstSalesman() {
 		return nameWorstSalesman;
+	}
+
+	public List<String> getSummaryInLines() {
+		List<String> lines = new ArrayList<>();
+		lines.add("Amount of clients: " + this.amountClients);
+		lines.add("Amount of salesman: " + this.amountSalesman);
+		lines.add("ID of the most expensive sale: " + this.idMostExpensiveSale);
+		lines.add("Worst salesman ever: " + this.nameWorstSalesman);
+		return lines;
 	}
 }
