@@ -21,10 +21,6 @@ public enum TypeDataEnum {
 		this.converterData = converterData;
 	}
 
-	public String getPrefix() {
-		return prefix;
-	}
-
 	public ConverterData getConverterData() {
 		return converterData;
 	}

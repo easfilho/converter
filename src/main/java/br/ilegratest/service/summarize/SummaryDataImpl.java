@@ -24,30 +24,28 @@ public class SummaryDataImpl implements SummaryData {
 	private Converter converter;
 
 	@Override
-	public void execute() {
+	public void execute() throws IOException {
 		this.summarizer = new SaleSummarizer();
-		try {
-			List<Path> listPaths = getAllDatFilesFromDirectory();
-			for (Path path : listPaths) {
-				List<String> lines = readDatFile(path);
-				List<Data> listData = convertLines(lines);
-				writeSummary(listData, path);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		List<Path> listPaths = getAllDatFilesFromDirectory();
+		for (Path path : listPaths) {
+			List<String> lines = readDatFile(path);
+			List<Data> listData = convertLines(lines);
+			writeSummary(listData, path);
 		}
+
 	}
 
-	private void writeSummary(List<Data> listData, Path path) {
+	private void writeSummary(List<Data> listData, Path path) throws IOException {
 		String fileName = getFlatFileName(path);
 		SaleSummary saleSummary = this.summarizer.summarize(listData);
-		FileManager fileManager = new DatFileManager(System.getProperty("user.dir") + String.format(PATH_OUT_DIRECTORY, fileName));
+		FileManager fileManager = new DatFileManager(
+				System.getProperty("user.dir") + String.format(PATH_OUT_DIRECTORY, fileName));
 		fileManager.write(saleSummary.getSummaryInLines());
 	}
 
 	private String getFlatFileName(Path path) {
 		String[] files = path.toString().split("\\\\");
-		String nameFile = files[files.length-1].split("\\.")[0];
+		String nameFile = files[files.length - 1].split("\\.")[0];
 		return nameFile;
 	}
 
@@ -61,7 +59,7 @@ public class SummaryDataImpl implements SummaryData {
 		return listData;
 	}
 
-	private List<String> readDatFile(Path path) {
+	private List<String> readDatFile(Path path) throws IOException {
 		List<String> lines = new ArrayList<>();
 		FileManager fileManager = new DatFileManager(path.toString());
 		lines.addAll(fileManager.read());

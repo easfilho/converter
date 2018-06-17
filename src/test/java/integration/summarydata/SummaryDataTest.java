@@ -1,5 +1,6 @@
 package integration.summarydata;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import br.ilegratest.service.summarize.SummaryDataImpl;
 public class SummaryDataTest {
 
 	@Test
-	public void shoudSummarizeData() {
+	public void shoudSummarizeData() throws IOException {
 		List<String> lines = new ArrayList<>();
 
 		lines.add("001ç1234567891234çDiegoç50000");
@@ -40,7 +41,7 @@ public class SummaryDataTest {
 	}
 	
 	@Test
-	public void shoudSummarizeDataTwoFiles() {
+	public void shoudSummarizeDataTwoFiles() throws IOException {
 		SummaryData summaryData = new SummaryDataImpl();
 
 		List<String> linesFirstFile = new ArrayList<>();
@@ -86,7 +87,7 @@ public class SummaryDataTest {
 		Assert.assertEquals("Worst salesman ever: Diego", resulSecondtLines.get(3));
 	}
 	
-	private void prepareData(List<String> lines, String inPath) {
+	private void prepareData(List<String> lines, String inPath) throws IOException {
 		FileManager fileManagerIn = new DatFileManager(inPath);
 		fileManagerIn.write(lines);
 	}
