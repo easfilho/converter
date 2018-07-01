@@ -11,7 +11,7 @@ public class ConverterCustomerData extends ConverterData {
 
 	@Override
 	public Data convert(String data) {
-		String[] fields = data.split(super.SEPARATOR_CHARACTER);
+		String[] fields = data.split(SEPARATOR_CHARACTER);
 		String cnpj = fields[POSITION_CNPJ];
 		String name = fields[POSITION_NAME];
 		String businessArea = fields[POSTION_BUSINESS_AREA];
