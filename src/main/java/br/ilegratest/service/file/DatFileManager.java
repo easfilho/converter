@@ -2,6 +2,7 @@ package br.ilegratest.service.file;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,27 +23,49 @@ public class DatFileManager extends FileManager {
 
 		File file = new File(super.path);
 		file.getParentFile().mkdirs();
-		file.createNewFile();
-		OutputStream outputStream = new FileOutputStream(file);
-		for (String line : lines) {
-			outputStream.write(line.getBytes());
-			outputStream.write("\n".getBytes());
+		OutputStream outputStream = null;
+		try {
+			outputStream = new FileOutputStream(file);
+			file.createNewFile();
+			for (String line : lines) {
+				outputStream.write(line.getBytes());
+				outputStream.write("\n".getBytes());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (outputStream != null) {
+				outputStream.flush();
+				outputStream.close();
+			}
 		}
-		outputStream.flush();
-		outputStream.close();
 
 	}
 
 	@Override
 	public List<String> read() throws IOException {
 		List<String> lines = new ArrayList<>();
-		InputStream is = new FileInputStream(path);
-		Scanner scan = new Scanner(is);
-		while (scan.hasNext()) {
-			lines.add(scan.nextLine());
+		InputStream is = null;
+		Scanner scan = null;
+		try {
+			is = new FileInputStream(path);
+			scan = new Scanner(is);
+			while (scan.hasNext()) {
+				lines.add(scan.nextLine());
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (is != null) {
+				is.close();
+			}
+			if (scan != null) {
+				scan.close();
+			}
 		}
-		is.close();
-		scan.close();
+
 		return lines;
 	}
 }
