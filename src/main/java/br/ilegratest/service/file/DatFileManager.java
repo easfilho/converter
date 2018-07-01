@@ -20,52 +20,31 @@ public class DatFileManager extends FileManager {
 
 	@Override
 	public void write(List<String> lines) throws IOException {
-
 		File file = new File(super.path);
 		file.getParentFile().mkdirs();
-		OutputStream outputStream = null;
-		try {
-			outputStream = new FileOutputStream(file);
+		try (OutputStream outputStream = new FileOutputStream(file)) {
 			file.createNewFile();
 			for (String line : lines) {
 				outputStream.write(line.getBytes());
 				outputStream.write("\n".getBytes());
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
 			throw e;
-		} finally {
-			if (outputStream != null) {
-				outputStream.flush();
-				outputStream.close();
-			}
 		}
-
 	}
 
 	@Override
 	public List<String> read() throws IOException {
 		List<String> lines = new ArrayList<>();
-		InputStream is = null;
-		Scanner scan = null;
-		try {
-			is = new FileInputStream(path);
-			scan = new Scanner(is);
-			while (scan.hasNext()) {
-				lines.add(scan.nextLine());
+		try (InputStream is = new FileInputStream(path)) {
+			try (Scanner scaneer = new Scanner(is)) {
+				while (scaneer.hasNext()) {
+					lines.add(scaneer.nextLine());
+				}
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 			throw e;
-		} finally {
-			if (is != null) {
-				is.close();
-			}
-			if (scan != null) {
-				scan.close();
-			}
 		}
-
 		return lines;
 	}
 }
