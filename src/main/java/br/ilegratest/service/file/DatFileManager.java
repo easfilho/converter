@@ -22,10 +22,11 @@ public class DatFileManager extends FileManager {
 		File file = new File(super.path);
 		file.getParentFile().mkdirs();
 		try (OutputStream outputStream = new FileOutputStream(file)) {
-			file.createNewFile();
-			for (String line : lines) {
-				outputStream.write(line.getBytes());
-				outputStream.write("\n".getBytes());
+			if (file.createNewFile()) {
+				for (String line : lines) {
+					outputStream.write(line.getBytes());
+					outputStream.write("\n".getBytes());
+				}
 			}
 		}
 	}

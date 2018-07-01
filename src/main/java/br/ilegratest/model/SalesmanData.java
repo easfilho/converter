@@ -1,7 +1,6 @@
 package br.ilegratest.model;
 
 public class SalesmanData extends Data {
-	
 	private String cpf;
 	private String name;
 	private Double salary;

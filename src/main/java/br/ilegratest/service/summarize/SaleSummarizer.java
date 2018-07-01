@@ -69,7 +69,7 @@ public class SaleSummarizer implements Summarizer {
 	}
 
 	private Double getSumOfSales(List<SaleData> listSaleData) {
-		return listSaleData.stream().mapToDouble(x -> x.getValue()).sum();
+		return listSaleData.stream().mapToDouble(SaleData::getValue).sum();
 	}
 
 }

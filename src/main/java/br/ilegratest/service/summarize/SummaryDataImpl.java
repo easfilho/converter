@@ -21,24 +21,20 @@ public class SummaryDataImpl implements SummaryData {
 	private static final String PATH_IN_DIRECTORY = "\\data\\in";
 	private static final String PATH_OUT_DIRECTORY = "\\data\\out\\%s.done.dat";
 
-	private Summarizer summarizer;
-	private Converter converter;
-
 	@Override
 	public void execute() throws IOException {
-		this.summarizer = new SaleSummarizer();
+		Summarizer summarizer = new SaleSummarizer();
 		List<Path> listPaths = getAllDatFilesFromDirectory();
 		for (Path path : listPaths) {
 			List<String> lines = readDatFile(path);
 			List<Data> listData = convertLines(lines);
-			writeSummary(listData, path);
+			writeSummary(summarizer, listData, path);
 		}
-
 	}
 
-	public void writeSummary(List<Data> listData, Path path) throws IOException {
+	public void writeSummary(Summarizer summarizer, List<Data> listData, Path path) throws IOException {
 		String fileName = getFlatFileName(path);
-		SaleSummary saleSummary = this.summarizer.summarize(listData);
+		SaleSummary saleSummary = summarizer.summarize(listData);
 		FileManager fileManager = new DatFileManager(
 				System.getProperty("user.dir") + String.format(PATH_OUT_DIRECTORY, fileName));
 		fileManager.write(saleSummary.getSummaryInLines());
@@ -52,9 +48,9 @@ public class SummaryDataImpl implements SummaryData {
 
 	private List<Data> convertLines(List<String> lines) {
 		List<Data> listData = new ArrayList<>();
-		this.converter = new ConverterFlatFile();
+		Converter converter = new ConverterFlatFile();
 		for (String line : lines) {
-			Data data = this.converter.convert(line);
+			Data data = converter.convert(line);
 			listData.add(data);
 		}
 		return listData;
@@ -67,8 +63,8 @@ public class SummaryDataImpl implements SummaryData {
 
 	public List<Path> getAllDatFilesFromDirectory() throws IOException {
 		try (Stream<Path> stream = Files.walk(Paths.get(System.getProperty("user.dir") + PATH_IN_DIRECTORY))) {
-			return stream.filter(Files::isRegularFile)
-					.filter(x -> x.toString().endsWith(".dat")).collect(Collectors.toList()); 
+			return stream.filter(Files::isRegularFile).filter(x -> x.toString().endsWith(".dat"))
+					.collect(Collectors.toList());
 		}
 	}
 }
