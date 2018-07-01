@@ -42,8 +42,7 @@ public class SummaryDataImpl implements SummaryData {
 
 	private String getFlatFileName(Path path) {
 		String[] files = path.toString().split("\\\\");
-		String nameFile = files[files.length - 1].split("\\.")[0];
-		return nameFile;
+		return files[files.length - 1].split("\\.")[0];
 	}
 
 	private List<Data> convertLines(List<String> lines) {
