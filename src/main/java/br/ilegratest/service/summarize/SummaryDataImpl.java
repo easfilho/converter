@@ -35,7 +35,7 @@ public class SummaryDataImpl implements SummaryData {
 
 	}
 
-	private void writeSummary(List<Data> listData, Path path) throws IOException {
+	public void writeSummary(List<Data> listData, Path path) throws IOException {
 		String fileName = getFlatFileName(path);
 		SaleSummary saleSummary = this.summarizer.summarize(listData);
 		FileManager fileManager = new DatFileManager(
@@ -59,11 +59,9 @@ public class SummaryDataImpl implements SummaryData {
 		return listData;
 	}
 
-	private List<String> readDatFile(Path path) throws IOException {
-		List<String> lines = new ArrayList<>();
+	public List<String> readDatFile(Path path) throws IOException {
 		FileManager fileManager = new DatFileManager(path.toString());
-		lines.addAll(fileManager.read());
-		return lines;
+		return fileManager.read();
 	}
 
 	private List<Path> getAllDatFilesFromDirectory() throws IOException {
