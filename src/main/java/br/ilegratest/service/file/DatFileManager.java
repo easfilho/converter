@@ -2,7 +2,6 @@ package br.ilegratest.service.file;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,8 +27,6 @@ public class DatFileManager extends FileManager {
 				outputStream.write(line.getBytes());
 				outputStream.write("\n".getBytes());
 			}
-		} catch (IOException e) {
-			throw e;
 		}
 	}
 
@@ -42,8 +39,6 @@ public class DatFileManager extends FileManager {
 					lines.add(scaneer.nextLine());
 				}
 			}
-		} catch (FileNotFoundException e) {
-			throw e;
 		}
 		return lines;
 	}

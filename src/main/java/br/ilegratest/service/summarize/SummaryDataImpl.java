@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import br.ilegratest.model.Data;
 import br.ilegratest.model.SaleSummary;
@@ -65,7 +66,9 @@ public class SummaryDataImpl implements SummaryData {
 	}
 
 	public List<Path> getAllDatFilesFromDirectory() throws IOException {
-		return Files.walk(Paths.get(System.getProperty("user.dir") + PATH_IN_DIRECTORY)).filter(Files::isRegularFile)
-				.filter(x -> x.toString().endsWith(".dat")).collect(Collectors.toList());
+		try (Stream<Path> stream = Files.walk(Paths.get(System.getProperty("user.dir") + PATH_IN_DIRECTORY))) {
+			return stream.filter(Files::isRegularFile)
+					.filter(x -> x.toString().endsWith(".dat")).collect(Collectors.toList()); 
+		}
 	}
 }
