@@ -64,7 +64,7 @@ public class SummaryDataImpl implements SummaryData {
 		return fileManager.read();
 	}
 
-	private List<Path> getAllDatFilesFromDirectory() throws IOException {
+	public List<Path> getAllDatFilesFromDirectory() throws IOException {
 		return Files.walk(Paths.get(System.getProperty("user.dir") + PATH_IN_DIRECTORY)).filter(Files::isRegularFile)
 				.filter(x -> x.toString().endsWith(".dat")).collect(Collectors.toList());
 	}
